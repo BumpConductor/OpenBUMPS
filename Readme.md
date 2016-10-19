@@ -1,8 +1,9 @@
 # OpenBUMP
 
-Data to be stored in a Document Store - MongoDB
 
 ## Data Model
+
+Data to be stored in a Document Store - MongoDB.
 
 The database will contain 3 collections:
 - Bumps
