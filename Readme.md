@@ -1,5 +1,12 @@
 # OpenBUMP
 
+Web App consisting of:
+
+- MongoDB databse at (mongodb://<dbuser>:<dbpassword>@ds061246.mlab.com:61246/open_bump)
+- Python backend using Flask micro framework
+- Nginx proxy servering static resources and routing REST requests to Flask
+- Google Polymer Front-end
+
 
 ## Data Model
 
