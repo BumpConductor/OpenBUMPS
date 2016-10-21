@@ -108,3 +108,19 @@ JSON:
 
     }
 
+## Installation
+
+### Pre-requisites
+
+- Install latest NodeJS LTS version
+- On the command line
+    - npm install -g bower
+    - npm install -g polymer-cli
+### Install and run
+
+- Clone from github: https://github.com/BumpConductor/OpenBUMPS.git
+- cd into the repo folder
+- On the command line
+    - bower install
+	- polymer serve
+- Open a browser and navigate to http://localhost:8080
