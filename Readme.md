@@ -52,6 +52,7 @@ The database will contain 3 collections:
 
 JSON:
 
+``` json
     {
 	    _id: 1223456548,
 	    title: "Kitten Damage to furniture",
@@ -66,7 +67,7 @@ JSON:
 				500037373]
 
     }
-
+```
 
 
 ### Users Document Structure
@@ -81,6 +82,7 @@ JSON:
 
 JSON:
 
+``` json
     {
 	    _id: 1223456548,
 	    username: "kcarroll",
@@ -94,6 +96,7 @@ JSON:
 				500037373]
 
     }
+```
 
 
 ### Solvers Document Structure
@@ -108,6 +111,7 @@ JSON:
 
 JSON:
 
+``` json
     {
 	    _id: 1223456548,
 	    Name: "Ken Corp",
@@ -129,6 +133,7 @@ JSON:
 				500037373]
 
     }
+```
 
 ---
 
