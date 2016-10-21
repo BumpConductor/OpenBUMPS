@@ -14,6 +14,13 @@ Web App consisting of:
 - Nginx proxy servering static resources and routing REST requests to Flask
 - Google Polymer Front-end
 
+Currently the polymer frontend is started. Temporarily it can be server with built in polymer serve command.
+I have set up a free mongoDB database online
+
+Nginx - to do
+Flask REST server - to do
+MongoDB - server set-up
+
 
 ## Data Model <a id="data-model"></a>
 
@@ -132,4 +139,3 @@ JSON:
 	- polymer serve
 - Open a browser and navigate to http://localhost:8080
 
-# This is a first level header
