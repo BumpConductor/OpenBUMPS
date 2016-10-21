@@ -145,6 +145,7 @@ JSON:
 - On the command line
     - npm install -g bower
     - npm install -g polymer-cli
+
 ### Install and run
 
 - Clone from github: https://github.com/BumpConductor/OpenBUMPS.git
