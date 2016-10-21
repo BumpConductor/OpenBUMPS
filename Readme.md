@@ -15,10 +15,13 @@ Web App consisting of:
 - Google Polymer Front-end
 
 Currently the polymer frontend is started. Temporarily it can be server with built in polymer serve command.
-I have set up a free mongoDB database online
+
+I have set up a free mongoDB database online. There is no data in it yet. The first create command with create the database, collection and document in one go.
 
 Nginx - to do
+
 Flask REST server - to do
+
 MongoDB - server set-up
 
 
