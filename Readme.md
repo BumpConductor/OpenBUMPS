@@ -1,5 +1,12 @@
 # OpenBUMP
 
+## Table of Contents
+  * [Overview](#overview)
+  * [Data Model](#data-model)
+  * [Installation](#installation)
+
+## Overview <a id="overview"></a>
+
 Web App consisting of:
 
 - MongoDB databse at (mongodb://<dbuser>:<dbpassword>@ds061246.mlab.com:61246/open_bump)
@@ -8,7 +15,7 @@ Web App consisting of:
 - Google Polymer Front-end
 
 
-## Data Model
+## Data Model <a id="data-model"></a>
 
 Data to be stored in a Document Store - MongoDB.
 
@@ -108,7 +115,7 @@ JSON:
 
     }
 
-## Installation
+## Installation <a id="installation"></a>
 
 ### Pre-requisites
 
@@ -124,3 +131,5 @@ JSON:
     - bower install
 	- polymer serve
 - Open a browser and navigate to http://localhost:8080
+
+# This is a first level header
