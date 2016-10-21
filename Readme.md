@@ -1,10 +1,14 @@
 # OpenBUMP
+
 ---
+
 ## Table of Contents
   * [Overview](#overview)
   * [Data Model](#data-model)
   * [Installation](#installation)
+
 ---
+
 ## Overview <a id="overview"></a>
 
 Web App consisting of:
@@ -25,6 +29,7 @@ Flask REST server - to do
 MongoDB - server set-up
 
 ---
+
 ## Data Model <a id="data-model"></a>
 
 Data to be stored in a Document Store - MongoDB.
@@ -124,7 +129,9 @@ JSON:
 				500037373]
 
     }
+
 ---
+
 ## Installation <a id="installation"></a>
 
 ### Pre-requisites
