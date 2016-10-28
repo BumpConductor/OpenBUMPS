@@ -1,5 +1,16 @@
 # OpenBUMP
 
+---
+
+## Table of Contents
+  * [Overview](#overview)
+  * [Data Model](#data-model)
+  * [Installation](#installation)
+
+---
+
+## Overview <a id="overview"></a>
+
 Web App consisting of:
 
 - MongoDB databse at (mongodb://<dbuser>:<dbpassword>@ds061246.mlab.com:61246/open_bump)
@@ -7,8 +18,19 @@ Web App consisting of:
 - Nginx proxy servering static resources and routing REST requests to Flask
 - Google Polymer Front-end
 
+Currently the polymer frontend is started. Temporarily it can be server with built in polymer serve command.
 
-## Data Model
+I have set up a free mongoDB database online. There is no data in it yet. The first create command with create the database, collection and document in one go.
+
+Nginx - to do
+
+Flask REST server - to do
+
+MongoDB - server set-up
+
+---
+
+## Data Model <a id="data-model"></a>
 
 Data to be stored in a Document Store - MongoDB.
 
@@ -30,13 +52,14 @@ The database will contain 3 collections:
 
 JSON:
 
+``` json
     {
 	    _id: 1223456548,
 	    title: "Kitten Damage to furniture",
 	    description: "Kittens can ruin stuff",
 	    submitter: 46464784993,
-	    created_date: 2016-10-19T23-45-00,
-	    last_updated: 2016-11-19T10-45-00,
+	    created_date: "2016-10-19T23-45-00",
+	    last_updated: "2016-11-19T10-45-00",
 		solver: 36637300,
 		votes: [373878703,
 				478940404,
@@ -44,7 +67,7 @@ JSON:
 				500037373]
 
     }
-
+```
 
 
 ### Users Document Structure
@@ -59,6 +82,7 @@ JSON:
 
 JSON:
 
+``` json
     {
 	    _id: 1223456548,
 	    username: "kcarroll",
@@ -72,6 +96,7 @@ JSON:
 				500037373]
 
     }
+```
 
 
 ### Solvers Document Structure
@@ -86,6 +111,7 @@ JSON:
 
 JSON:
 
+``` json
     {
 	    _id: 1223456548,
 	    Name: "Ken Corp",
@@ -107,4 +133,25 @@ JSON:
 				500037373]
 
     }
+```
+
+---
+
+## Installation <a id="installation"></a>
+
+### Pre-requisites
+
+- Install latest NodeJS LTS version
+- On the command line
+    - npm install -g bower
+    - npm install -g polymer-cli
+
+### Install and run
+
+- Clone from github: https://github.com/BumpConductor/OpenBUMPS.git
+- cd into the repo folder
+- On the command line
+    - bower install
+	- polymer serve
+- Open a browser and navigate to http://localhost:8080
 
