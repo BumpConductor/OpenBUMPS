@@ -14,7 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="my-viewLogin">
   <template>
-    <firebase-auth id="auth" user="{{user}}" provider="google" on-error="handleError"></firebase-auth>
+    <!-- <firebase-auth id="auth" user="{{user}}" provider="google" on-error="handleError"></firebase-auth> -->
     <style include="shared-styles">
       :host {
         display: block;
@@ -26,6 +26,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="card">
       <h1>My BUMPS Login</h1>
       <paper-button raised on-tap="googleLogin">Log in with Google</paper-button>
+      <paper-button raised on-tap="signOut">Sign Out</paper-button>
     </div>
   </template>
 
@@ -34,8 +35,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'my-viewLogin',
 
       googleLogin: function () {
-        this.$.auth.signInWithPopup();
+        var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/plus.login');
+        firebase.auth().signInWithRedirect(provider);
+      },
+
+      signOut : function () {
+        firebase.auth().signOut();
       }
+
     });
   </script>
 </dom-module>
