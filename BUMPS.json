@@ -1,0 +1,176 @@
+    {
+        "_id": "1223456500",
+        "title": "Bike Theft",
+        "description": "Bike theft is common. In London it is thought 100K bikes are stolen every year!",
+        "submitter": "46464784993",
+        "created_date": "2016-10-19T23-45-00",
+        "last_updated": "2016-11-19T10-45-00",
+        "solver" : "36637300",
+        "votes": ["373878703",
+                "478940404",
+                "575003627",
+                "500037373"]
+
+    }
+    
+    {
+        "_id" : "1223456501",
+        "title" : "iPhone Wi-Fi Problems",
+        "description" :"Many iPhones won’t connect to wifi, such as not being able to connect to any network or to a specific network",
+        "submitter": "46464784993",
+        "created_date": "2016-10-19T23-45-00",
+        "last_updated": "2016-11-19T10-45-00",
+        "solver" : "36637300",
+        "votes": ["373878703",
+                "478940404",
+                "575003627",
+                "500037373"]
+    }
+
+    {
+        "_id" : "1223456502",
+        "title" : "Thumb Sucking",
+        "description" :"Children who suck their thumbs often or with great intensity around age 4 or 5, or those who are still sucking their thumbs at age 6, are at risk for dental or speech problems. Prolonged thumb-sucking may cause the teeth to become improperly aligned (malocclusion) or push the teeth outward.",
+        "submitter": "46464784993",
+        "created_date": "2016-10-19T23-45-00",
+        "last_updated": "2016-11-19T10-45-00",
+        "solver" : "36637300",
+        "votes": ["373878703",
+                "478940404",
+                "575003627",
+                "500037373"]
+    }
+    
+    {
+        "_id" : "1223456503",
+        "title" : "Food Labelling",
+        "description" :"In 1812, people ate approximately 45 grams of sugar every five days.2 That’s about the amount in one can of soda. By 2012, most Americans were consuming sugar to the equivalent of 17 cans of soda every five days.Unfortunately, not everyone recognizes they’re eating that much sugar, as it hides under names you may not know.",
+        "submitter": "46464784993",
+        "created_date": "2016-10-19T23-45-00",
+        "last_updated": "2016-11-19T10-45-00",
+        "solver" : "36637300",
+        "votes": ["373878703",
+                "478940404",
+                "575003627",
+                "500037373"]
+    }
+    
+    {
+        "_id" : "1223456504",
+        "title" : "Myopia (Nearsightedness)",
+        "description" :"Nearsightedness, or myopia, is the most common refractive error of the eye, and it has become more prevalent in recent years. Though the exact cause for this increase in nearsightedness among Americans is unknown, many eye doctors feel it has something to do with eye fatigue from computer use and other extended near vision tasks, coupled with a genetic predisposition for myopia.",
+        "submitter": "46464784993",
+        "created_date": "2016-10-19T23-45-00",
+        "last_updated": "2016-11-19T10-45-00",
+        "solver" : "36637300",
+        "votes": ["373878703",
+                "478940404",
+                "575003627",
+                "500037373"]
+    }
+    
+    {
+        "_id" : "1223456505",
+        "title" : "Glaucoma",
+        "description" :"Glaucoma damages the optic nerve and diminishes the field of vision",
+        "submitter": "46464784993",
+        "created_date": "2016-10-19T23-45-00",
+        "last_updated": "2016-11-19T10-45-00",
+        "solver" : "36637300",
+        "votes": ["373878703",
+                "478940404",
+                "575003627",
+                "500037373"]
+    }
+    {
+        "_id" : "1223456506",
+        "title" : "Education Kills Creativity",
+        "description" :"School system kills childrens creativity",
+        "submitter": "46464784993",
+        "created_date": "2016-10-19T23-45-00",
+        "last_updated": "2016-11-19T10-45-00",
+        "solver" : "36637300",
+        "votes": ["373878703",
+                "478940404",
+                "575003627",
+                "500037373"]
+    }
+    {
+        "_id" : "1223456507",
+        "title" : "EASA Drone Regulation Threat to EU Drone Industry",
+        "description" :"There are a new set of rules which have recently be published by EASA (the European version of the CAA and FAA). In response to a series of Drone scares, and fears about their safety, they have decided to release a massive document of safety regulations called the prototype. The Frist Document is 72 pages long and the second is a 60 page explanatory document (these are not half assed regulations). Unfortunately, it targets us DIY guys, the people who actually put in the most effort and care when it comes to safety",
+        "submitter": "46464784993",
+        "created_date": "2016-10-19T23-45-00",
+        "last_updated": "2016-11-19T10-45-00",
+        "solver" : "36637300",
+        "votes": ["373878703",
+                "478940404",
+                "575003627",
+                "500037373"]
+    }
+    {
+        "_id" : "1223456508",
+        "title" : "Traffic Congestion due to cycle lanes",
+        "description" :"Traffic jams in the Square Mile are being made worse because road space has been lost to make way for Cycle Superhighway routes, according to a report by the City of London Corporation.",
+        "submitter": "46464784993",
+        "created_date": "2016-10-19T23-45-00",
+        "last_updated": "2016-11-19T10-45-00",
+        "solver" : "36637300",
+        "votes": ["373878703",
+                "478940404",
+                "575003627",
+                "500037373"]
+    }
+    {
+        "_id" : "1223456509",
+        "title" : "Data Privacy",
+        "description" :"We find ourselves in a position where our trust in many institutions has been completely eroded — if we ever had any anyway. Big companies suck up our personal data and share it among themselves. Governments collect and store even more deeply personal data of different types from the data big companies collect. On top of this, large dumps of data are illegally released to the world daily, whether by accident or stolen by criminals. Large organizations are notoriously poor at safeguarding information, and since this information has value, criminal enterprises are very efficient at stealing it.",
+        "submitter": "46464784993",
+        "created_date": "2016-10-19T23-45-00",
+        "last_updated": "2016-11-19T10-45-00",
+        "solver" : "36637300",
+        "votes": ["373878703",
+                "478940404",
+                "575003627",
+                "500037373"]
+    }
+    {
+        "_id" : "1223456510",
+        "title" : "Climate Change",
+        "description" :"The climate is changing. The earth is warming up, and there is now overwhelming scientific consensus that it is happening, and human-induced. With global warming on the increase and species and their habitats on the decrease, chances for ecosystems to adapt naturally are diminishing.",
+        "submitter": "46464784993",
+        "created_date": "2016-10-19T23-45-00",
+        "last_updated": "2016-11-19T10-45-00",
+        "solver" : "36637300",
+        "votes": ["373878703",
+                "478940404",
+                "575003627",
+                "500037373"]
+    }
+    {
+        "_id" : "1223456511",
+        "title" : "Health Tourists (NHS)",
+        "description" :"NHS moans about lack of funds but FAILS to collect hundreds of millions from health tourists because doctors don't think it's their duty to recover costs",
+        "submitter": "46464784993",
+        "created_date": "2016-10-19T23-45-00",
+        "last_updated": "2016-11-19T10-45-00",
+        "solver" : "36637300",
+        "votes": ["373878703",
+                "478940404",
+                "575003627",
+                "500037373"]
+    }
+    {
+        "_id" : "1223456512",
+        "title" : "Intellectual Property Rights",
+        "description" :"he protection of intellectual property rights (IPRs)—patents, trademarks, copyrights, trade secrets, and the like—has changed over the last two decades from an obscure national regulation issue to a hotly debated global issue.",
+        "submitter": "46464784993",
+        "created_date": "2016-10-19T23-45-00",
+        "last_updated": "2016-11-19T10-45-00",
+        "solver" : "36637300",
+        "votes": ["373878703",
+                "478940404",
+                "575003627",
+                "500037373"]
+    }
+    
