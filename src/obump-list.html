@@ -29,7 +29,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <p>Ut labores minimum atomorum pro. Laudem tibique ut has.
       <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
     </div>
-    <template is="dom-repeat" items="{{bumps}}">
+    <template id="bumplist" is="dom-repeat" items="{{bumps}}" >
       <paper-material elevation="2">
         <div>
           <div><h3>{{item.title}}</h3></div>
@@ -38,21 +38,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </paper-material>
     </template>
   </template>
-
   <script>
     Polymer({
       is: 'obump-list',
+
+      properties: {
+        bumps: {
+          type: Array,
+          value: function () { return []; },
+          notify: true
+        }
+      },
+
       ready: function () {
-        this.bumps = [
-          {title: "kitten control", description: "Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit."},
-          {title: "bad cyclists", description: "Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit."},
-          {title: "sleepy mornings", description: "Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit."},
-          {title: "rotten veg", description: "Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit."},
-          {title: "winter nights", description: "Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit."},
-          {title: "cold rain", description: "Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit."},
-          {title: "sunday mornings", description: "Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit."},
-          {title: "pest control", description: "Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit."}
-        ];
+        firebase.database().ref('bumps/').once('value').then(function (snapshot) {
+          for (b in snapshot.val()) {
+            this.push('bumps', snapshot.val()[b]);
+          }
+        }.bind(this));
+      },
+
+      attached: function () {
+        console.log(this.bumps);
+        this.$.bumplist.render();
       }
     });
   </script>

@@ -10,10 +10,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-input/paper-textarea.html">
 
-<dom-module id="obump-login">
+<dom-module id="obump-addbump">
   <template>
-    <!-- <firebase-auth id="auth" user="{{user}}" provider="google" on-error="handleError"></firebase-auth> -->
     <style include="shared-styles">
       :host {
         display: block;
@@ -25,11 +26,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="card">
       <h1>Add BUMPS</h1>
     </div>
+    
+    <div>
+      <paper-input label="Enter a title here" value={{title}}></paper-input>
+      <paper-textarea rows="10" label="Enter a description here" value={{description}}></paper-textarea>
+      <paper-button on-tap="updateVar">Submit Bump</paper-button>
+    </div>
+
   </template>
 
   <script>
     Polymer({
-      is: 'obump-addbump'
+      is: 'obump-addbump',
+      properties: {
+        title: String,
+        description: String
+      },
+      updateVar: function () {
+        bumpData = {
+          user: firebase.auth().currentUser.uid,
+          title: this.title,
+          description: this.description
+        };
+        var newBumpKey = firebase.database().ref().child('bumps').push().key;
+        var updates = {};
+        updates['/bumps/' + newBumpKey] = bumpData;
+        firebase.database().ref().update(updates);
+        this.title = "";
+        this.description = "";
+      }
+
     });
   </script>
 </dom-module>
