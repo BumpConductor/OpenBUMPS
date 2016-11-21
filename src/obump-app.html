@@ -173,18 +173,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       ready: function() {
         firebase.auth().onAuthStateChanged(function (user) {
+          console.log("auth state changed " + user);
           if(user !== null) {
             firebase.database().ref().child("users").child(user.uid).set({
               name: user.displayName
             });
            }
-           this.set('route.path', '/list');
-        }.bind(this));
+           this.set('route.path', 'list');
+        }.bind(this)); 
+      },
+
+
+      attached: function () {
+        // on attached to dom
       },
 
       handleError: function (error) {
         this.set('route.path', '/search/');
       }
     });
+
   </script>
 </dom-module>
