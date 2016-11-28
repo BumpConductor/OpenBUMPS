@@ -116,7 +116,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-header condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-            <div main-title>OpenBUMPS</div>
+            <div main-title>Bump2Solve</div>
+            <div hidden$={{loggedIn}}><a href="/login"> Login </a></div>
+            <div hidden$={{!loggedIn}}><a href="/login"> {{displayName}} </a></div>
           </app-toolbar>
         </app-header>
 
@@ -145,6 +147,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           reflectToAttribute: true,
           observer: '_pageChanged'
+        },
+        loggedIn: {
+          type: Boolean,
+          value: false
+        },
+        displayName: {
+          type: String,
+          value: ""
         }
       },
 
@@ -173,11 +183,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       ready: function() {
         firebase.auth().onAuthStateChanged(function (user) {
-          console.log("auth state changed " + user);
           if(user !== null) {
             firebase.database().ref().child("users").child(user.uid).set({
               name: user.displayName
             });
+            this.loggedIn = true;
+            this.displayName = user.displayName;
            }
            this.set('route.path', 'list');
         }.bind(this)); 

@@ -11,10 +11,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-password-input/paper-password-input.html">
+<link rel="import" href="../bower_components/gold-email-input/gold-email-input.html">
+<link rel="import" href="../local_components/match-passwords-validator.html">
 
 <dom-module id="obump-login">
   <template>
-    <!-- <firebase-auth id="auth" user="{{user}}" provider="google" on-error="handleError"></firebase-auth> -->
     <style include="shared-styles">
       :host {
         display: block;
@@ -25,10 +28,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="card">
       <h1>My BUMPS Login</h1>
+      <paper-button raised on-tap="emailAccountCreate" hidden$={{firebase.auth().currentUser}} >create an account with email</paper-button>
+      <paper-button raised on-tap="emailLogin" hidden$={{!firebase.auth().currentUser}} >sign in with email</paper-button>
       <paper-button raised on-tap="googleLogin">Log in with Google</paper-button>
       <paper-button raised on-tap="signOut">Sign Out</paper-button>
     </div>
-  </template>
+
+    <div class="card" hidden$={{showcreateaccount}} >
+      <gold-email-input label="Enter Your Email Address" value={{email}}></gold-email-input>
+      <match-passwords-validator id="match-passwords-validator" password="[[password]]"></match-passwords-validator>
+      <paper-password-input label="Password" value="{{password}}"></paper-password-input>
+        <paper-password-input label="Confirm" auto-validate validator="match-passwords-validator" error-message="Passwords need to match">
+      </paper-password-input>
+
+    </div>
+    <div class="card" hidden$={{showsignin}} >
+      <gold-email-input label="Enter Your Email Address" value={{email}}></gold-email-input>
+      <paper-input label="Enter your password" value={{password}}></paper-input>
+    </div>  </template>
 
   <script>
     Polymer({
@@ -40,8 +57,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         firebase.auth().signInWithRedirect(provider);
       },
 
+      emailLogin: function () {
+        this.showsignin = false;
+      },
+
+      emailAccountCreate: function () {
+        this.showcreateaccount = false;
+      },
+
       signOut : function () {
         firebase.auth().signOut();
+      },
+
+      ready: function () {
+        this.showsignin = true;
+        this.showcreateaccount = true;
+        console.log("firebase.auth().currentUser = " + firebase.auth().currentUser );
       }
 
     });
