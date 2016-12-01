@@ -9,12 +9,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="shared-styles.html">
+
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-password-input/paper-password-input.html">
 <link rel="import" href="../bower_components/gold-email-input/gold-email-input.html">
 <link rel="import" href="../local_components/match-passwords-validator.html">
+
+<link rel="import" href="shared-styles.html">
 
 <dom-module id="obump-login">
   <template>
@@ -24,14 +26,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         padding: 10px;
       }
+      paper-button {
+        margin: 20px;
+      }
     </style>
 
     <div class="card">
       <h1>My BUMPS Login</h1>
-      <paper-button raised on-tap="showEmailAccountCreate" hidden$={{firebase.auth().currentUser}} >create an account with email</paper-button>
-      <paper-button raised on-tap="showEmailLogin" hidden$={{!firebase.auth().currentUser}} >sign in with email</paper-button>
-      <paper-button raised on-tap="googleLogin">Log in with Google</paper-button>
-      <paper-button raised on-tap="signOut">Sign Out</paper-button>
+      <div><paper-button raised on-tap="showEmailAccountCreate" hidden$={{firebase.auth().currentUser}} >create an account with email</paper-button></div>
+      <div><paper-button raised on-tap="showEmailLogin" hidden$={{!firebase.auth().currentUser}} >sign in with email</paper-button></div>
+      <div><paper-button raised on-tap="googleLogin">Log in with Google</paper-button></div>
+      <div><paper-button raised on-tap="signOut">Sign Out</paper-button></div>
     </div>
 
     <div class="card" hidden$={{hidecreateaccount}} >

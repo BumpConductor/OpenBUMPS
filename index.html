@@ -49,8 +49,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script>
       // Setup Polymer options
       window.Polymer = {
-        dom: 'shadow',
-        lazyRegister: true
+        dom: 'shady', //shady = polymer default setting
+        lazyRegister: false //false = polymer default setting
       };
 
       // Load webcomponentsjs polyfill if browser does not support native Web Components
@@ -88,20 +88,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
     </script>
-
-    <link rel="import" href="/src/obump-app.html">
-
     <style>
-      body {
+      @import url(//fonts.googleapis.com/css?family=Indie+Flower|Open+Sans);
+      body 
+      {
         margin: 0;
-        font-family: 'Roboto', 'Noto', sans-serif;
+        font-family: 'Open Sans', 'Roboto', 'Indie Flower', sans-serif;
+        font-size: medium;
         line-height: 1.5;
         min-height: 100vh;
-        background-color: #f2f2f2;
+        /*background-color: #f2f2f2;*/
       }
     </style>
+    <link rel="import" href="/src/obump-app.html">
   </head>
   <body>
+
     <obump-app></obump-app>
     <!-- Built with love using Polymer Starter Kit -->
   </body>
