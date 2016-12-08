@@ -163,12 +163,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ],
 
       _routePageChanged: function(page) {
-        if (firebase.auth().currentUser === null) {
+/*        if (firebase.auth().currentUser === null) {
           this.page = 'login';
         }
         else {
           this.page = page || 'list';
-        }
+        }*/
+        this.page = page || 'list';
       }, 
 
       _pageChanged: function(page) {
