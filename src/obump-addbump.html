@@ -67,6 +67,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // get refs to upload buuton and progress bar
         var fileButton = Polymer.dom(this.root).querySelector('#upper');
         var progressBar = Polymer.dom(this.root).querySelector('#uploadprogress');
+        
         fileButton.addEventListener("change", function (event) {
           // get file
           var file = event.target.files[0];
