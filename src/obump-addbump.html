@@ -30,6 +30,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div>
       <paper-input label="Enter a title here" value={{title}}></paper-input>
       <paper-textarea rows="10" label="Enter a description here" value={{description}}></paper-textarea>
+      <input id="upper" type="file" accept=image/*/>
+      <progress value="0" max="100" id="uploadprogress"></progress><br>
       <paper-button on-tap="updateVar">Submit Bump</paper-button>
     </div>
 
@@ -42,6 +44,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         title: String,
         description: String
       },
+
       updateVar: function () {
         bumpData = {
           user: firebase.auth().currentUser.uid,
@@ -54,8 +57,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         firebase.database().ref().update(updates);
         this.title = "";
         this.description = "";
-      }
+      },
 
+      uploadFile: function () {
+
+      },
+
+      ready: function () {
+        // get refs to upload buuton and progress bar
+        var fileButton = Polymer.dom(this.root).querySelector('#upper');
+        var progressBar = Polymer.dom(this.root).querySelector('#uploadprogress');
+        fileButton.addEventListener("change", function (event) {
+          // get file
+          var file = event.target.files[0];
+          // create storage reference
+          var storage = firebase.storage();
+          var storageRef = storage.ref("bump_images/" + file.name);
+          // upload file
+          var uploadTask = storageRef.put(file);
+          // do progress
+          uploadTask.on("state_changed", 
+            function progress(snapshot) {
+              var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              progressBar.value = percentage;
+            },
+            function error(err) {
+              console.log(err);
+            },
+            function complete() {
+              console.log("completed file upload");
+            }
+          );
+        });
+      }
     });
   </script>
 </dom-module>
