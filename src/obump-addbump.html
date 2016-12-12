@@ -42,14 +42,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'obump-addbump',
       properties: {
         title: String,
-        description: String
+        description: String,
+        photourl: {
+          type: String,
+          value: "test"
+        }
       },
 
       updateVar: function () {
         bumpData = {
           user: firebase.auth().currentUser.uid,
           title: this.title,
-          description: this.description
+          description: this.description,
+          pictureurl: this.photourl
         };
         var newBumpKey = firebase.database().ref().child('bumps').push().key;
         var updates = {};
@@ -73,8 +78,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var file = event.target.files[0];
           // create storage reference
           var storage = firebase.storage();
+          this.photourl = "bump_images/" + file.name;
           var storageRef = storage.ref("bump_images/" + file.name);
-          // upload file
+          // upload file"bump_images/" + 
           var uploadTask = storageRef.put(file);
           // do progress
           uploadTask.on("state_changed", 
@@ -89,7 +95,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               console.log("completed file upload");
             }
           );
-        });
+        }.bind(this));
       }
     });
   </script>
