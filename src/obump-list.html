@@ -34,6 +34,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div>
           <div><h3>{{item.title}}</h3></div>
           <div>{{item.description}}</div>
+          <br>
+          <div>Updated: [[_getTime(item.time)]]</div>
         </div>
       </paper-material>
     </template>
@@ -48,6 +50,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: function () { return []; },
           notify: true
         }
+      },
+
+      _getTime: function (serverTime){
+            return new Date(serverTime);
       },
 
       ready: function () {

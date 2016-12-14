@@ -46,7 +46,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         bumpData = {
           user: firebase.auth().currentUser.uid,
           title: this.title,
-          description: this.description
+          description: this.description,
+          time: firebase.database.ServerValue.TIMESTAMP,
         };
         var newBumpKey = firebase.database().ref().child('bumps').push().key;
         var updates = {};
