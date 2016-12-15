@@ -54,7 +54,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           user: firebase.auth().currentUser.uid,
           title: this.title,
           description: this.description,
-          pictureurl: this.photourl
+          pictureurl: this.photourl,
+          time: firebase.database.ServerValue.TIMESTAMP
         };
         var newBumpKey = firebase.database().ref().child('bumps').push().key;
         var updates = {};
