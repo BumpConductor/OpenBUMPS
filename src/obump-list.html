@@ -38,6 +38,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <div id='thumbnail'> <img src="http://bump2solve-8782b.appspot.com/{{item.pictureurl}}"> </div>
           <div><h3>{{item.title}}</h3></div>
           <div>{{item.description}}</div>
+          <br>
+          <div>Created: [[_getTime(item.createdtime)]]</div>
+          <div>Updated: [[_getTime(item.lastupdatedtime)]]</div> 
         </div>
       </paper-material>
     </template>
@@ -60,6 +63,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             this.push('bumps', snapshot.val()[b]);
           }
         }.bind(this));
+      },
+
+      _getTime: function (serverTime){
+            return new Date(serverTime);
       },
 
       attached: function () {

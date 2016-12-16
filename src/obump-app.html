@@ -52,70 +52,63 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="obump-app">
   <template>
     <style include="shared-styles">
-   
-      /*Colour Scheme REFERENCE: https://material.google.com/style/color.html#color-color-schemes*/
-
       :host {
-            --bumpapp-primary-500-color: #3F51B5; /*should be the most widely used across all screens and components*/
-            --bumpapp-primary-100-color: #C4CAE9;  /* #7A1EA1; Darker Indigo - use for all links etc)*/
-            --bumpapp-primary-700-color: #303F9F; /*Darker Indigo - use for all links etc)*/
-            --bumpapp-accent-color: #4CAF50; /*Accent: Use for the floating action button and interactive elements links etc*/
+       /* --app-primary-color: #05357A;
+        --app-secondary-color: black;*/
+        --app-primary-color: #3F51B5; 
+        --app-primary-lighter-color: #C4CAE9;
+        --app-primary-darker-color: #303F9F; 
+        --app-accent-color: #4CAF50; 
+        --app-base-grey-color: #f2f2f2; /* grey */
+        --app-base-white-color: #ffffff; /* white */  
+        display: block;
+      }
 
-            --bumpapp-body-color: #ffffff; /*white*/
-            --bumpapp-background-color: #f2f2f2; /*grey*/
-            display: block;
-            /*padding: 10px;*/
+      app-header {
+        color: var(--app-base-white-color);
+        background-color: var(--app-primary-darker-color);
       }
-      menu {
-        --paper-icon-button-ink-color: white;
+
+      app-header paper-icon-button {
+        --paper-icon-button-ink-color: var(--app-base-white-color);
       }
-      
-      /*
-      app-drawer-layout { } 
-      */
 
       app-drawer {
-         --app-drawer-content-container: {
-          background-color: var(--bumpapp-background-color);
+        --app-drawer-content-container: {
+          background-color: var(--app-base-white-color);
           overflow-x: hidden;
-          };
-       }
-      /*
-      app-header-layout {  }
-      app-header { }
-      */
+        };
+      }
 
       app-toolbar#main-toolbar {
         color: white;
-        background-color: var(--bumpapp-primary-500-color, black);
+        background-color: var(--app-primary-color);
       }
 
-      /*iron-selector { } */
-     
-
       .drawer-list {
-        margin: 0 500px;
-      } /* Is this having any affect?*/
+        margin: 0 20px;
+      }
 
       .drawer-list a {
         display: block;
-        padding: 8px 16px;
+        padding: 0 16px;
         text-decoration: none;
-        color: black;
+        color: black; 
         line-height: 40px;
       }
-      .drawer-list a:hover {
-        color: white;
-        background-color: var(--bumpapp-accent-color);
+
+     .drawer-list a.iron-selected {
+        color: var(--app-primary-darker-color);
+        font-weight: bold;
+        /*background-color: var(--app-accent-color);*/
       }
 
-      .drawer-list a.iron-selected {
-        color: black;
-        font-weight: bold;
-        /*text-decoration: underline;*/
-        border-bottom: 2px solid;
-        border-color: var(--bumpapp-accent-color);
+      .drawer-list a:hover {
+        color: white;
+        background-color: var(--app-accent-color);
       }
+
+ 
     </style>
 
     <app-location route="{{route}}"></app-location>
@@ -130,11 +123,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <!-- Nav on Mobile: Side nav menu -->
     <app-drawer-layout fullbleed>
       <!-- Drawer content -->
-      <app-drawer id="drawer">
-        <app-toolbar id="side-toolbar">
-          <div main-title>Menu</div>
-        </app-toolbar>
-        <iron-selector class="drawer-list" selected="[[page]]" attr-for-selected="name"  role="navigation">
+      <app-drawer id="drawer" opened="false">
+          <app-toolbar id="side-toolbar">
+            <div>Menu</div>
+          </app-toolbar>
+        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation" on-iron-select="_drawerSelected">
           <a name="list" href="/list">BUMPS</a>
           <a name="mylist" href="/mylist">My BUMPS</a>
           <a name="solvers" href="/solvers">Solvers</a>
@@ -149,7 +142,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-header class="main-header" condenses reveals effects="waterfall">
           <app-toolbar id="main-toolbar">
             <paper-icon-button id="menu-button" icon="menu" drawer-toggle></paper-icon-button>
-            <div main-title>BUMP2Solve</div>
+            <div main-title>Bump2Solve</div>
             <div hidden$={{loggedIn}}><a href="/login"> Login </a></div>
             <div hidden$={{!loggedIn}}><a href="/login"> {{displayName}} </a></div>
           </app-toolbar>
@@ -228,6 +221,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }.bind(this)); 
       },
 
+      _drawerSelected: function() {
+        if (!this.$.drawer.persistent) {
+          this.$.drawer.close();
+        }
+      },
 
       attached: function () {
         // on attached to dom

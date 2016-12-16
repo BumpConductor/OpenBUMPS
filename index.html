@@ -15,7 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
     <title>Bump2Solve</title>
-    <meta name="description" content="My App description">
+    <meta name="description" content="A network for sharing common problems worth solving">
 
     <link rel="icon" href="/images/favicon.ico">
 
@@ -27,12 +27,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="My App">
+    <meta name="application-name" content="BUMP2Solve">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="My App">
+    <meta name="apple-mobile-web-app-title" content="BUMP2Solve">
 
     <!-- Homescreen icons -->
     <link rel="apple-touch-icon" href="/images/manifest/icon-48x48.png">
@@ -49,8 +49,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script>
       // Setup Polymer options
       window.Polymer = {
-        dom: 'shady', //shady = polymer default setting
-        lazyRegister: false //false = polymer default setting
+        dom: 'shadow',
+        lazyRegister: true
       };
 
       // Load webcomponentsjs polyfill if browser does not support native Web Components
@@ -88,22 +88,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
     </script>
+
+    <link rel="import" href="/src/obump-app.html">
+
     <style>
-      @import url(//fonts.googleapis.com/css?family=Indie+Flower|Open+Sans);
-      body 
-      {
+      body {
         margin: 0;
-        font-family: 'Open Sans', 'Roboto', 'Indie Flower', sans-serif;
-        font-size: medium;
+        font-family: 'Roboto', 'Noto', sans-serif;
         line-height: 1.5;
         min-height: 100vh;
-        /*background-color: #f2f2f2;*/
+        background-color: #f2f2f2;
       }
     </style>
-    <link rel="import" href="/src/obump-app.html">
   </head>
   <body>
-
     <obump-app></obump-app>
     <!-- Built with love using Polymer Starter Kit -->
   </body>
