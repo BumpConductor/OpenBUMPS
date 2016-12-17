@@ -20,6 +20,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html"> <!-- new */ -->
+<link rel="import" href="../bower_components/paper-item/paper-icon-item.html"> <!-- new */ -->
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html"> <!-- new */ -->
+<link rel="import" href="../bower_components/iron-icons/social-icons.html"> <!-- new */ -->
+<link rel="import" href="../bower_components/iron-icons/maps-icons.html"> <!-- new */ -->
 <script type="text/javascript" src="../bower_components/firebase/firebase.js"></script>
 <link rel="import" href="obump-icons.html">
 <link rel="import" href="shared-styles.html">
@@ -88,7 +93,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .drawer-list {
         margin: 0 20px;
       }
-
       .drawer-list a {
         display: block;
         padding: 0 16px;
@@ -96,19 +100,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: black; 
         line-height: 40px;
       }
+      /*.drawer-list a:hover {
+        color: white;
+        background-color: var(--app-accent-color);
+      }*/
 
-     .drawer-list a.iron-selected {
-        color: var(--app-primary-darker-color);
+  /*   .drawer-list a.iron-selected {
+        color: var(--app-primary-color);
         font-weight: bold;
-        /*background-color: var(--app-accent-color);*/
-      }
+        background-color: var(--app-accent-color);
+      }*/
 
-      .drawer-list a:hover {
+      .drawer-list .menu-icon-item:hover {
         color: white;
         background-color: var(--app-accent-color);
       }
 
- 
     </style>
 
     <app-location route="{{route}}"></app-location>
@@ -127,12 +134,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <app-toolbar id="side-toolbar">
             <div>Menu</div>
           </app-toolbar>
-        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation" on-iron-select="_drawerSelected">
-          <a name="list" href="/list">BUMPS</a>
-          <a name="mylist" href="/mylist">My BUMPS</a>
-          <a name="solvers" href="/solvers">Solvers</a>
-          <a name="addbump" href="/addbump">Add Bump</a>
-          <a name="login" href="/login">Login</a>
+        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation" on-iron-activate="_drawerSelected">
+            <paper-icon-item class="menu-icon-item">
+              <iron-icon class="menu-icons" icon="maps:terrain" item-icon role="menutime" ></iron-icon>
+              <a name="bumps" href="/list">BUMPS</a>
+            </paper-icon-item>
+            <paper-icon-item class="menu-icon-item"> 
+              <iron-icon class="menu-icons" icon="icons:report-problem" item-icon role="menutime"></iron-icon>
+             <a name="mylist" href="/mylist">MyBUMPS</a>
+            </paper-icon-item>
+            <paper-icon-item class="menu-icon-item">
+              <iron-icon class="menu-icons" icon="icons:add-circle" item-icon role="menutime"></iron-icon>
+              <a name="addbump" href="/addbump">Add BUMPS</a>
+            </paper-icon-item>
+            <paper-icon-item class="menu-icon-item">
+              <iron-icon class="menu-icons" icon="maps:place" item-icon role="menutime"></iron-icon>
+              <a name="space" href="/solvers">MyPlaces</a>
+            </paper-icon-item>
+            <hr>
+            <paper-icon-item class="menu-icon-item">
+              <iron-icon class="menu-icons" icon="social:group" item-icon role="menutime"></iron-icon>
+              <a name="scouts" href="/login">Scouts</a>
+            </paper-icon-item>
+            <paper-icon-item class="menu-icon-item">
+              <iron-icon class="menu-icons" icon="icons:star" item-icon role="menutime"></iron-icon>
+              <a name="solvers" href="/solvers">Solvers</a>
+            </paper-icon-item>
+            <hr>
+
+            <paper-icon-item class="menu-icon-item">
+              <iron-icon class="menu-icons" icon="social:share" item-icon role="menutime"></iron-icon>
+              <a name="share" href="/list">Share</a>
+            </paper-icon-item>
+            <paper-icon-item class="menu-icon-item">
+              <iron-icon class="menu-icons" icon="icons:timeline" item-icon role="menutime"></iron-icon>
+              <a name="dashboard" href="/login">Dashboard</a>
+            </paper-icon-item>
+            <paper-icon-item class="menu-icon-item">
+              <iron-icon class="menu-icons" icon="icons:account-circle" item-icon role="menutime"></iron-icon>
+              <a name="login" href="/login">Login</a>
+            </paper-icon-item>
+            <hr>
+            <paper-icon-item class="menu-icon-item">
+              <iron-icon class="menu-icons" icon="icons:settings" item-icon role="menutime"></iron-icon>
+              <a name="settings" href="/list">Settings</a>
+            </paper-icon-item>
+            <paper-icon-item class="menu-icon-item">
+              <iron-icon class="menu-icons" icon="icons:announcement" item-icon role="menutime"></iron-icon>
+              <a name="sendfeedback" href="/list">Send feedback</a>
+            </paper-icon-item>
+            <paper-icon-item class="menu-icon-item">
+              <iron-icon class="menu-icons" icon="icons:help" item-icon role="menutime"></iron-icon>
+              <a name="help" href="/list">Help</a>
+            </paper-icon-item>
         </iron-selector>
       </app-drawer>
 
