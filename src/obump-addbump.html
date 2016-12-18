@@ -12,6 +12,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/cpol-image/cpol-image.html">
 
 <dom-module id="obump-addbump">
   <template>
@@ -30,10 +32,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div>
       <paper-input label="Enter a title here" value={{title}}></paper-input>
       <paper-textarea rows="10" label="Enter a description here" value={{description}}></paper-textarea>
-      <input id="upper" type="file" accept=image/*/>
-      <progress value="0" max="100" id="uploadprogress"></progress><br>
-      <paper-button on-tap="updateVar">Submit Bump</paper-button>
+      <paper-button on-tap="submitBump">Submit Bump</paper-button><br><br>
+      <paper-button id="addpicbutton" on-tap="showUploadDialog">Add a picture</paper-button>
+      <progress style="display:none" value="0" max="100" id="uploadprogress"></progress>
     </div>
+
+      <paper-dialog id="choosepic">
+        <cpol-image id="cimage" output-data={{result}} loading={{loading}} output-type='blob' max-height='[[mh]]' this-error='{{error}}'></cpol-image>
+        <div id="showpic" style="height:300px;width:400px;"><img src$='[[_computeBlob(result)]]'></div>
+        <div>
+          <input id="upper" type="file" accept=image/*/>
+          <paper-button on-tap="doOK" dialog-confirm autofocus>OK</paper-button>
+          <paper-button dialog-dismiss>Cancel</paper-button>
+        </div>
+      </paper-dialog>
 
   </template>
 
@@ -46,19 +58,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         photourl: {
           type: String,
           value: "test"
+        },
+        mh: {
+          type: Number,
+          value: 300
         }
       },
 
-      updateVar: function () {
+      submitBump: function () {
+        var newBumpKey = firebase.database().ref().child('bumps').push().key;
+        console.log(this.result.type);
+        var fileExtension = this.result.type == 'image/jpeg' ? "jpg" : "png";
+        console.log(fileExtension);
+        var pictureUrl = "bump_images/000" + newBumpKey + "." + fileExtension;
+        var storage = firebase.storage();
+        var storageRef = storage.ref(pictureUrl);
+        var uploadTask = storageRef.put(this.result);
+        uploadTask.on("state_changed", 
+          function progress(snapshot) {
+            var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            this.$$("#uploadprogress").value = percentage;
+          }.bind(this),
+          function error(err) {
+            console.log(err);
+          },
+          function complete() {
+            console.log("completed file upload");
+          }
+        );        
         bumpData = {
           user: firebase.auth().currentUser.uid,
           title: this.title,
           description: this.description,
-          pictureurl: this.photourl,
+          pictureurl: pictureUrl,
           createdtime: firebase.database.ServerValue.TIMESTAMP,
           lastupdatedtime: firebase.database.ServerValue.TIMESTAMP
         };
-        var newBumpKey = firebase.database().ref().child('bumps').push().key;
         var updates = {};
         updates['/bumps/' + newBumpKey] = bumpData;
         firebase.database().ref().update(updates);
@@ -66,37 +101,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.description = "";
       },
 
-      uploadFile: function () {
+      showUploadDialog: function () {
+        this.$$('#choosepic').open();
+      },
 
+      _exe: function() {
+        this.$.cimage.processImageFile(this.$.ifile.files);
+      },
+      _computeBlob: function (blob) {
+        if (blob) {
+          var URL = window.URL || window.webkitURL;
+          return URL.createObjectURL(blob);
+        }
+      },
+
+      doOK: function () {
+        this.$$('#uploadprogress').style.display = "block";
+        this.$$("#addpicbutton").style.display = "none";
       },
 
       ready: function () {
-        // get refs to upload buuton and progress bar
+        // get refs to upload button and progress bar
         var fileButton = Polymer.dom(this.root).querySelector('#upper');
-        var progressBar = Polymer.dom(this.root).querySelector('#uploadprogress');
-        
+        var uploaddialog = Polymer.dom(this.root).querySelector('#choosepic');
+
         fileButton.addEventListener("change", function (event) {
-          // get file
-          var file = event.target.files[0];
-          // create storage reference
-          var storage = firebase.storage();
-          this.photourl = "bump_images/" + file.name;
-          var storageRef = storage.ref("bump_images/" + file.name);
-          // upload file"bump_images/" + 
-          var uploadTask = storageRef.put(file);
-          // do progress
-          uploadTask.on("state_changed", 
-            function progress(snapshot) {
-              var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              progressBar.value = percentage;
-            },
-            function error(err) {
-              console.log(err);
-            },
-            function complete() {
-              console.log("completed file upload");
-            }
-          );
+          this.$.cimage.processImageFile(fileButton.files);
         }.bind(this));
       }
     });
