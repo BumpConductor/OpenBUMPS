@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../bower_components/polymer/polymer.html">
+<!-- <link rel="import" href="../bower_components/polymer/polymer.html"> -->
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../bower_components/paper-material/paper-material-shared-styles.html">
 <link rel="import" href="shared-styles.html">
@@ -54,25 +54,123 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Array,
           value: function () { return []; },
           notify: true
-        }
+        },
+        cursors: {
+          type: Array,
+          value: function () { return []; },
+          notify: true
+        },
+        pages: {
+          type: Object,
+          value: function () { return {}; },
+          notify: true
+        },
+        pageSize: {
+          type: Number,
+          value: 10,
+          notify: true
+        },
+        pageCount: Number,
+        isLastPage: Boolean
       },
 
       ready: function () {
-        firebase.database().ref('bumps/').once('value').then(function (snapshot) {
-          for (b in snapshot.val()) {
-            this.push('bumps', snapshot.val()[b]);
+        var self = this;
+        // get user
+        firebase.auth().onAuthStateChanged(function (user) {
+          if (user) {
+            // get token to access db via REST
+            user.getToken().then(function(data) {
+              // XHR here
+              var dbRef = firebase.database().ref('bumps/');
+              var query = dbRef.toString() + '.json?shallow=true&auth=' + data;
+              var xhttp = new XMLHttpRequest();
+              xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                  console.log("cursors " + self.cursors);
+                  var response = JSON.parse(xhttp.responseText);
+                  var keys = Object.keys(response);
+                  var orderedKeys = keys.sort();
+                  var keysLength = orderedKeys.length;
+
+                  for (var i = keysLength; i > 0; i -= self.pageSize) {
+                    self.cursors.push({
+                      fromStart: {
+                        startRecord: i - self.pageSize + 1,
+                        endRecord: i
+                      },
+                      fromEnd: {
+                        startRecord: keysLength - i + 1,
+                        endRecord: keysLength - i + self.pageSize
+                      },
+                      endKey: keys[i - 1]
+                    });
+                  }
+                  var cursorsLength = self.cursors.length;
+                  var k = cursorsLength;
+                  while (k--) {
+                    self.cursors[k].pageNumber = k + 1;
+                    self.pages[k + 1] = self.cursors[k];
+                  }
+                  self.pageCount = cursorsLength;
+                  self.goToPage(1);
+                }
+              };
+              xhttp.open("GET", query, true);
+              xhttp.send();
+            });
           }
-        }.bind(this));
+        });
+      },
+
+      goToPage: function (pageNumber) {
+        var self = this;
+        pageNumber = Math.min(this.pageCount, Math.max(1, parseInt(pageNumber)));
+        var ref;
+        if (Object.keys(this.pages).length) { // Null check for empty collections
+          this.page = this.pages[pageNumber];
+          this.pageNumber = pageNumber;
+          this.isLastPage = pageNumber === Object.keys(this.pages).length;
+          ref = firebase.database().ref('bumps/').orderByKey().limitToLast(this.pageSize).endAt(this.page.endKey);
+        } else {
+          ref = firebase.database().ref('bumps/').orderByKey().limitToLast(this.pageSize);
+        }
+
+        ref.once('value').then(function (snap) {
+          var collection = snap.val();
+          var keys = [];
+          snap.forEach(function (childSnap) {
+            keys.push(childSnap.key);
+          });
+          for (i in keys) {
+            console.log("i is " + keys[i]);
+          }
+          self.items = keys;
+
+        });
+      },
+
+      _getUserToken: function (user) {
+        user.getToken().then(function(data) {
+          console.log("in _getUserToken: data = " + data);
+          return data;
+        });
+      },
+
+      _authStateChange: function (user) {
+        if (user) {
+          console.log(typeof this._getUserToken)
+          var token = _getUserToken.call(this, user);
+          console.log("in onAuthStateChanged: token = " + token);
+        } else {
+          console.log("user doesn't exist");
+        }
       },
 
       _getTime: function (serverTime){
-            return new Date(serverTime);
-      },
+        return new Date(serverTime);
+      }
 
-      attached: function () {
-/*        console.log(this.bumps);
-        this.$.bumplist.render();
-*/      }
     });
 
   </script>
