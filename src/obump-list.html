@@ -11,6 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <!-- <link rel="import" href="../bower_components/polymer/polymer.html"> -->
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../bower_components/paper-material/paper-material-shared-styles.html">
+<link rel="import" href="../bower_components/paper-material/paper-icon-button.html">
 <link rel="import" href="shared-styles.html">
 <dom-module id="obump-list">
   <template>
@@ -32,10 +33,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <p>BUMPS (Big Unsolved Meaningful Problems worth Solving).</p>
        <p>Find the BUMPS that impact you and the world around you.</p>
     </div>
+    <paper-icon-button icon="arrow-back" on-tap="previous" disabled$="[[isFirstPage]]"></paper-icon-button> 
+    <paper-icon-button icon="arrow-forward" on-tap="next" disabled$="[[isLastPage]]"></paper-icon-button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page <span>[[pageNumber]]</span> of <span>[[pageCount]]</span>
     <template id="bumplist" is="dom-repeat" items="{{bumps}}" >
       <paper-material elevation="2">
         <div>
-          <div id='thumbnail'> <img src="http://bump2solve-8782b.appspot.com/{{item.pictureurl}}"> </div>
+          <div id='thumbnail'> <img src="{{item.url}}"> </div>
           <div><h3>{{item.title}}</h3></div>
           <div>{{item.description}}</div>
           <br>
@@ -71,7 +75,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           notify: true
         },
         pageCount: Number,
-        isLastPage: Boolean
+        isLastPage: Boolean,
+        isFirstPage: Boolean,
+        pageNumber: Number
       },
 
       ready: function () {
@@ -125,46 +131,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       goToPage: function (pageNumber) {
         var self = this;
+        var count = 0;
         pageNumber = Math.min(this.pageCount, Math.max(1, parseInt(pageNumber)));
         var ref;
         if (Object.keys(this.pages).length) { // Null check for empty collections
           this.page = this.pages[pageNumber];
           this.pageNumber = pageNumber;
           this.isLastPage = pageNumber === Object.keys(this.pages).length;
+          this.isFirstPage = pageNumber === 1;
           ref = firebase.database().ref('bumps/').orderByKey().limitToLast(this.pageSize).endAt(this.page.endKey);
         } else {
           ref = firebase.database().ref('bumps/').orderByKey().limitToLast(this.pageSize);
         }
 
         ref.once('value').then(function (snap) {
-          var collection = snap.val();
+          var results = snap.val();
           var keys = [];
-          snap.forEach(function (childSnap) {
-            keys.push(childSnap.key);
-          });
-          for (i in keys) {
-            console.log("i is " + keys[i]);
+          for (b in results) {
+            keys.unshift(results[b]);
           }
-          self.items = keys;
-
+          self.bumps = keys;
         });
       },
 
-      _getUserToken: function (user) {
-        user.getToken().then(function(data) {
-          console.log("in _getUserToken: data = " + data);
-          return data;
-        });
+      previous: function () {
+        this.goToPage(Math.min(this.pageCount, this.pageNumber - 1));
+        console.log("previous");
       },
 
-      _authStateChange: function (user) {
-        if (user) {
-          console.log(typeof this._getUserToken)
-          var token = _getUserToken.call(this, user);
-          console.log("in onAuthStateChanged: token = " + token);
-        } else {
-          console.log("user doesn't exist");
-        }
+      next: function () {
+        this.goToPage(Math.max(1, this.pageNumber + 1));
+        console.log("next");
       },
 
       _getTime: function (serverTime){
