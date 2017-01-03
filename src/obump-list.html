@@ -48,6 +48,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
       </paper-material>
     </template>
+    <paper-icon-button icon="arrow-back" on-tap="previous" disabled$="[[isFirstPage]]"></paper-icon-button> 
+    <paper-icon-button icon="arrow-forward" on-tap="next" disabled$="[[isLastPage]]"></paper-icon-button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page <span>[[pageNumber]]</span> of <span>[[pageCount]]</span>
   </template>
   <script>
     Polymer({
