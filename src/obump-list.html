@@ -39,7 +39,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <template id="bumplist" is="dom-repeat" items="{{bumps}}" >
       <paper-material elevation="2">
         <div>
-          <div id='thumbnail'> <img src="{{item.url}}"> </div>
+          <div id='thumbnail'> <img id="[[item.id]]" src="{{item.url}}" height=100 width=100> </div>
           <div><h3>{{item.title}}</h3></div>
           <div>{{item.description}}</div>
           <br>
@@ -151,9 +151,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var results = snap.val();
           var keys = [];
           for (b in results) {
+            results[b]['id'] = "id" + b;
             keys.unshift(results[b]);
           }
           self.bumps = keys;
+
+
+          var storage = firebase.storage();
+          for (var i = 0; i < keys.length; i++) {
+            if (keys[i].pictureurl && keys[i].pictureurl !== 'test') {
+              var ref = storage.ref(keys[i].pictureurl);
+              let key = keys[i].id;
+              console.log("in for loop, i = " + i + ", and id is " + key);
+              ref.getDownloadURL().then(function (url) {
+                console.log("in then, id is " + key)
+                var imgEl = self.$$("img#" + key);
+                imgEl.src = url;
+              })
+              self.bumps = keys;
+            }
+          }
         });
       },
 
