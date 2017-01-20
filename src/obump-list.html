@@ -13,6 +13,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-material/paper-material-shared-styles.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="format-bump.html">
+<link rel="import" href="obump-bump.html">
 <dom-module id="obump-list">
   <template>
     <style include="shared-styles">
@@ -37,16 +39,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-icon-button icon="arrow-forward" on-tap="next" disabled$="[[isLastPage]]"></paper-icon-button>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page <span>[[pageNumber]]</span> of <span>[[pageCount]]</span>
     <template id="bumplist" is="dom-repeat" items="{{bumps}}" >
-      <paper-material elevation="2">
-        <div>
-          <div id='thumbnail'> <img id="[[item.id]]" src="{{item.url}}" height=100 width=100> </div>
-          <div><h3>{{item.title}}</h3></div>
-          <div>{{item.description}}</div>
-          <br>
-          <div>Created: [[_getTime(item.createdtime)]]</div>
-          <div>Updated: [[_getTime(item.lastupdatedtime)]]</div> 
-        </div>
-      </paper-material>
+      <obump-bump bump="[[item]]"></obump-bump>
     </template>
     <paper-icon-button icon="arrow-back" on-tap="previous" disabled$="[[isFirstPage]]"></paper-icon-button> 
     <paper-icon-button icon="arrow-forward" on-tap="next" disabled$="[[isLastPage]]"></paper-icon-button>
@@ -148,29 +141,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
         ref.once('value').then(function (snap) {
+          var userId = firebase.auth().currentUser.uid;
           var results = snap.val();
           var keys = [];
           for (b in results) {
-            results[b]['id'] = "id" + b;
-            keys.unshift(results[b]);
+            keys.unshift(formatBump(results[b], b, userId));
           }
           self.bumps = keys;
-
-
-          var storage = firebase.storage();
-          for (var i = 0; i < keys.length; i++) {
-            if (keys[i].pictureurl && keys[i].pictureurl !== 'test') {
-              var ref = storage.ref(keys[i].pictureurl);
-              let key = keys[i].id;
-              console.log("in for loop, i = " + i + ", and id is " + key);
-              ref.getDownloadURL().then(function (url) {
-                console.log("in then, id is " + key)
-                var imgEl = self.$$("img#" + key);
-                imgEl.src = url;
-              })
-              self.bumps = keys;
-            }
-          }
         });
       },
 

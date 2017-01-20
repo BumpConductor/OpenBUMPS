@@ -3,3 +3,4 @@ build/
 node_modules/
 config.js
 _*
+.DS_Store
