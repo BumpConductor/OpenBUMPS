@@ -1,0 +1,26 @@
+<script>
+  function formatBump(bump, bumpId, userId) {
+    bump.id = bumpId;
+    bump.voteTotal = 0;
+    bump.userVotes = 0;
+    var votes = bump.votes;
+    if (votes) {
+      for (var prop in votes) {
+        var vote = votes[prop];
+        if (prop === userId) {
+          bump.userVotes = vote;
+        }
+        bump.voteTotal += vote;
+      }
+    } else {
+      bump.votes = {};
+    }
+    return bump;
+  }
+
+  function updateBumpVotes(bump, userId, vote) {
+    bump.voteTotal += vote - bump.userVotes;
+    bump.userVotes = vote;
+    bump.votes[userId] = vote;
+  }
+</script>

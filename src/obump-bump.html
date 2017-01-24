@@ -1,0 +1,121 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!-- <link rel="import" href="../bower_components/polymer/polymer.html"> -->
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/paper-material/paper-material-shared-styles.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="format-bump.html">
+<dom-module id="obump-bump">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+
+      #thumbnail {
+        width: 100px;
+        height: 100px;
+      }
+    </style>
+
+    <paper-material elevation="2">
+      <div>
+        <div id='thumbnail'> <img id="[[bump.id]]" src="../images/placeholder.gif" height=100 width=100> </div>
+        <div><h3>{{bump.title}}</h3></div>
+        <div>{{bump.description}}</div>
+        <div>
+          <paper-icon-button icon="thumb-down" on-tap="voteDown" disabled$="[[userVotes < 0]]"></paper-icon-button> 
+          <span>{{voteTotal}}</span>
+          <paper-icon-button icon="thumb-up" on-tap="voteUp" disabled$="[[userVotes > 0]]"></paper-icon-button>
+        </div>
+        <br>
+        <div>Created: [[_getTime(bump.createdtime)]]</div>
+        <div>Updated: [[_getTime(bump.lastupdatedtime)]]</div> 
+      </div>
+    </paper-material>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'obump-bump',
+
+      properties: {
+        bump: {
+          type: Object,
+          observer: '_bumpChanged'
+        },
+        userVotes: Number,
+        voteTotal: Number
+      },
+
+      _bumpChanged: function (bump) {
+        var self = this;
+        self._updateVotes(bump);
+        var bumpId = bump.id;
+        var storage = firebase.storage();
+        var imgEl = self.$$("img#" + bumpId);
+        imgEl.src = '../images/placeholder.gif';
+        if (bump.pictureurl && bump.pictureurl !== 'test') {
+          var ref = storage.ref(bump.pictureurl);
+          ref.getDownloadURL().then(function (url) {
+            imgEl.src = url;
+          })
+        }
+      },
+
+      _updateVotes: function (bump) {
+        this.userVotes = bump.userVotes;
+        this.voteTotal = bump.voteTotal;
+      },
+
+      _getTime: function (serverTime) {
+        return new Date(serverTime);
+      },
+
+      _vote: function (vote) {
+        var self = this;
+        var database = firebase.database();
+        var userId = firebase.auth().currentUser.uid;
+        var bumpId = this.bump.id;
+        // update bump in database
+        var updates = {
+          ['bumps/' + bumpId + '/votes/' + userId]: vote
+        };
+        database.ref().update(updates).then(function() {
+          // update local bump
+          var bump = self.bump;
+          updateBumpVotes(bump, userId, vote);
+          self._updateVotes(bump);
+        });
+      },
+
+      voteUp: function () {
+        if (this.bump.userVotes < 0) {
+          this._vote(0);
+        } else {
+          this._vote(1);
+        }
+      },
+
+      voteDown: function () {
+        if (this.bump.userVotes > 0) {
+          this._vote(0);
+        } else {
+          this._vote(-1);
+        }
+      },
+
+    });
+
+  </script>
+</dom-module>
