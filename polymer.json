@@ -1,11 +1,13 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/my-app.html",
+  "shell": "src/obump-app.html",
   "fragments": [
-    "src/my-view1.html",
-    "src/my-view2.html",
-    "src/my-view3.html",
-    "src/my-view404.html"
+    "src/obump-list.html",
+    "src/obump-mylist.html",
+    "src/obump-solvers.html",
+    "src/obump-addbump.html",
+    "src/obump-login.html",
+    "src/obump-404.html"
   ],
   "sourceGlobs": [
    "src/**/*",
@@ -13,6 +15,8 @@
    "bower.json"
   ],
   "includeDependencies": [
+    "sw-precache-config.js",
+    "config.js",
     "manifest.json",
     "bower_components/webcomponentsjs/webcomponents-lite.min.js"
   ]

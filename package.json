@@ -1,0 +1,48 @@
+{
+  "name": "open-bumps",
+  "version": "1.0.0",
+  "description": "Bump Conductor firebase application",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "config": {
+    "profile": "local"
+  },
+  "scripts": {
+    "config": "mustache config/$npm_package_config_profile.json config.js.mustache > config.js",
+    "rules": "mustache config/$npm_package_config_profile.json rules/storage.rules.mustache > rules/storage.rules",
+    "app": "mustache config/$npm_package_config_profile.json .firebaserc.mustache > .firebaserc",
+    "prestart": "npm run config",
+    "start": "polymer serve",
+    "test": "polymer test --skip-plugin sauce",
+    "test:ci": "polymer test",
+    "prebuild": "npm run config",
+    "build": "polymer build",
+    "predeploy": "npm run build && npm run rules && npm run app",
+    "deploy": "firebase deploy",
+    "bower": "bower"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BumpConductor/OpenBUMPS.git"
+  },
+  "keywords": [
+    "bumps",
+    "firebase",
+    "polymer"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BumpConductor/OpenBUMPS/issues"
+  },
+  "homepage": "https://github.com/BumpConductor/OpenBUMPS#readme",
+  "devDependencies": {
+    "bower": "^1.8.0",
+    "firebase-bolt": "^0.8.2",
+    "firebase-tools": "^3.2.1",
+    "mustache": "^2.3.0",
+    "polymer-cli": "^0.17.0"
+  }
+}

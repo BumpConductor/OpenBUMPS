@@ -10,6 +10,7 @@
 module.exports = {
   staticFileGlobs: [
     '/index.html',
+    '/config.js',
     '/manifest.json',
     '/bower_components/webcomponentsjs/webcomponents-lite.min.js'
   ],
