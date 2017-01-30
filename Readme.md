@@ -152,6 +152,7 @@ JSON:
     - `cp /config/production.json /config/local.json`
     - Then update the settings in `/config/local.json` to match your personal firebase project
 - On the command line
+    - `npm install`
     - `npm run bower -- install`
     - `npm deploy`
         - this will deploy the rules as well as the website to your personal firebase project
