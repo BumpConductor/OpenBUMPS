@@ -1,5 +1,7 @@
 # OpenBUMP
 
+[![Build Status](https://travis-ci.org/BumpConductor/OpenBUMPS.svg?branch=master)](https://travis-ci.org/BumpConductor/OpenBUMPS)
+
 ---
 
 ## Table of Contents
