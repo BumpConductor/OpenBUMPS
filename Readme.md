@@ -142,16 +142,21 @@ JSON:
 ### Pre-requisites
 
 - Install latest NodeJS LTS version
-- On the command line
-    - npm install -g bower
-    - npm install -g polymer-cli
+- Create a personal development project on firebase and enable google authentication on it
 
 ### Install and run
 
 - Clone from github: https://github.com/BumpConductor/OpenBUMPS.git
 - cd into the repo folder
+- set up a local configuration to point to your personal development project
+    - `cp /config/production.json /config/local.json`
+    - Then update the settings in `/config/local.json` to match your personal firebase project
 - On the command line
-    - bower install
-	- polymer serve
-- Open a browser and navigate to http://localhost:8080
+    - `npm install`
+    - `npm run bower -- install`
+    - `npm deploy`
+        - this will deploy the rules as well as the website to your personal firebase project
+    - `npm start`
+        - this will start a local webserver but it will still point to the firebase database (which is why the rules should be deployed first)
+- Open a browser and navigate to `http://localhost:8080`
 

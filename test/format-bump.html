@@ -1,0 +1,79 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>my-view1</title>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+
+    <!-- Import the element to test -->
+    <link rel="import" href="../local_components/format-bump.html">
+  </head>
+  <body>
+    <script>
+      chai.should();
+
+      describe('format-bump', function() {
+        describe('formatBump', function() {
+          var bumpId = 'bumpId';
+          var userId = 'userId';
+          var bump;
+          var newBump;
+
+          describe('with no votes', function() {
+            before(function() {
+              bump = {};
+              newBump = formatBump(bump, bumpId, userId);
+            });
+
+            it('should return the bump', function() {
+              newBump.should.equal(bump);
+            });
+
+            it('should assign the bumpId', function() {
+              newBump.id.should.eql(bumpId);
+            });
+
+            it('should initialize the hash of votes', function() {
+              newBump.votes.should.eql({});
+            });
+          });
+
+          describe('with votes', function() {
+            before(function() {
+              bump = {
+                votes: {
+                  userId: 5,
+                  anotherUserId: 3,
+                  lastUserId: -4
+                }
+              };
+              newBump = formatBump(bump, bumpId, userId);
+            });
+
+            it('should assign the userVotes', function() {
+              newBump.userVotes.should.eql(5);
+            });
+
+            it('should assign the voteTotal', function() {
+              newBump.voteTotal.should.eql(4);
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

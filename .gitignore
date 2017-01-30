@@ -1,6 +1,11 @@
-bower_components/
-build/
-node_modules/
-config.js
+/bower_components/
+/build/
+/node_modules/
+/npm-debug.log
+
 _*
 .DS_Store
+
+# local configuration
+/.firebaserc
+/config.js

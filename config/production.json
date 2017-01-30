@@ -1,0 +1,10 @@
+{
+  "app": "openbumps-prod",
+  "config": {
+    "apiKey": "AIzaSyCWt1RbCxjZAMcFweG3oOn3lKZhFVDJz_U",
+    "authDomain": "openbumps-prod.firebaseapp.com",
+    "databaseURL": "https://openbumps-prod.firebaseio.com",
+    "storageBucket": "openbumps-prod.appspot.com",
+    "messagingSenderId": "693119945428"
+  }
+}

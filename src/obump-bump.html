@@ -12,8 +12,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../bower_components/paper-material/paper-material-shared-styles.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../local_components/format-bump.html">
 <link rel="import" href="shared-styles.html">
-<link rel="import" href="format-bump.html">
 <dom-module id="obump-bump">
   <template>
     <style include="shared-styles">
@@ -30,13 +30,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <paper-material elevation="2">
       <div>
-        <div id='thumbnail'> <img id="[[bump.id]]" src="../images/placeholder.gif" height=100 width=100> </div>
+        <div id='thumbnail'> <img id$="[[bump.id]]" src="../images/placeholder.gif" height=100 width=100> </div>
         <div><h3>{{bump.title}}</h3></div>
         <div>{{bump.description}}</div>
         <div>
-          <paper-icon-button icon="thumb-down" on-tap="voteDown" disabled$="[[userVotes < 0]]"></paper-icon-button> 
+          <paper-icon-button icon="thumb-down" on-tap="voteDown" disabled$="[[bump.userVotes < 0]]"></paper-icon-button> 
           <span>{{voteTotal}}</span>
-          <paper-icon-button icon="thumb-up" on-tap="voteUp" disabled$="[[userVotes > 0]]"></paper-icon-button>
+          <paper-icon-button icon="thumb-up" on-tap="voteUp" disabled$="[[bump.userVotes > 0]]"></paper-icon-button>
         </div>
         <br>
         <div>Created: [[_getTime(bump.createdtime)]]</div>
@@ -88,9 +88,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var userId = firebase.auth().currentUser.uid;
         var bumpId = this.bump.id;
         // update bump in database
-        var updates = {
-          ['bumps/' + bumpId + '/votes/' + userId]: vote
-        };
+        var updates = {};
+        updates['bumps/' + bumpId + '/votes/' + userId] = vote;
         database.ref().update(updates).then(function() {
           // update local bump
           var bump = self.bump;
