@@ -7,7 +7,7 @@ if [ -n "$TRAVIS_BUILD_ID" ]; then
   echo TRAVIS_BRANCH=$TRAVIS_BRANCH
   echo DEPLOY_BRANCH=$DEPLOY_BRANCH
 
-  # only run on the master branch
+  # only run on the $DEPLOY_BRANCH branch
   if [ "$TRAVIS_BRANCH" == "$DEPLOY_BRANCH" ]; then
     # don't run on pull requests
     if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
