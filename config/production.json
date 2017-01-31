@@ -1,10 +1,10 @@
 {
-  "app": "openbumps-prod",
+  "app": "bump2solve-8782b",
   "config": {
-    "apiKey": "AIzaSyCWt1RbCxjZAMcFweG3oOn3lKZhFVDJz_U",
-    "authDomain": "openbumps-prod.firebaseapp.com",
-    "databaseURL": "https://openbumps-prod.firebaseio.com",
-    "storageBucket": "openbumps-prod.appspot.com",
-    "messagingSenderId": "693119945428"
+    "apiKey": "AIzaSyCu5Tt1JPDCE5Z02MS7DvtHL2co7syyjYs",
+    "authDomain": "bump2solve-8782b.firebaseapp.com",
+    "databaseURL": "https://bump2solve-8782b.firebaseio.com",
+    "storageBucket": "bump2solve-8782b.appspot.com",
+    "messagingSenderId": "702324108217"
   }
 }
